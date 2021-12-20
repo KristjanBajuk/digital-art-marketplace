@@ -18,6 +18,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import SideDrawer from './SideDrawer';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -64,6 +65,9 @@ const MaterialAppBar = () => {
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
+    
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -236,6 +240,7 @@ const MaterialAppBar = () => {
                             <AccountCircleOutlinedIcon/>
                         </IconButton>
                         <IconButton
+                            onClick={()=>setDrawerOpen(!drawerOpen)}
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
@@ -260,6 +265,7 @@ const MaterialAppBar = () => {
                     </Box>
                 </Toolbar>
             </AppBar>
+            { drawerOpen && <SideDrawer open={true} onClose={()=>setDrawerOpen(false)} />}
             {renderMobileMenu}
             {renderMenu}
         </Box>
