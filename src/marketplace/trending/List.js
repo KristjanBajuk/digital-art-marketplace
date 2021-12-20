@@ -19,7 +19,7 @@ import Web3Modal from 'web3modal'
 import { nftaddress, nftmarketaddress } from "../../config"
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
-import KBMarket from '../../artifacts/contracts/KBMarket.sol/KBMarket.json'
+import KBMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -52,8 +52,8 @@ const Index = () => {
 
         const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
         const marketContract = new ethers.Contract(nftmarketaddress, KBMarket.abi, provider);
-
-        const data = await marketContract.fetchMarketTokens();
+  
+        let data = await marketContract.fetchMarketTokens();
 
         const items = await Promise.all(data.map( async i => {
             const tokenUri = await tokenContract.tokenURI(i.tokenId);
@@ -108,7 +108,7 @@ const Index = () => {
                 No NFTs in marketplace
             </Box>}
             <Grid container spacing={2}>
-                { nfts.reverse().map((nft)=>  <Grid item xs={6} md={4} lg={3}><Card  className={classes.card} key={nft?.tokenId} sx={{ maxWidth: 345, borderRadius: '10px' }}>
+                { nfts.map((nft)=>  <Grid key={nft.tokenId} item xs={6} md={4} lg={3}><Card className={classes.card} key={nft?.tokenId} sx={{ maxWidth: 345, borderRadius: '10px' }}>
                             <CardActionArea className={classes.cardAction}>
                                 <CardMedia
                                     style={{height: '200px', width: '100%'}}
@@ -117,7 +117,7 @@ const Index = () => {
                                     image={nft?.image}
                                     alt="green iguana"
                                 />
-                                <CardContent style={{height: '60px', maxHeight: '120px'}}>
+                                <CardContent style={{ maxHeight: '120px'}}>
                                     <Typography gutterBottom variant="h5" component="div">
                                         {nft?.name}
                                     </Typography>
@@ -137,7 +137,7 @@ const Index = () => {
                         </Card></Grid>)
                     }
                 {
-                    loadingState === 'not-loaded' && [1,2,3,4,5,6,7,8,9,10,11,12].map(() => <Grid item xs={3}> <Card sx={{ maxWidth: 345, borderRadius: '10px' }}>
+                    loadingState === 'not-loaded' && [1,2,3,4,5,6,7,8,9,10,11,12].map((data) => <Grid key={data} item xs={3}> <Card sx={{ maxWidth: 345, borderRadius: '10px' }}>
                         <CardActionArea className={classes.cardAction}>
                                 <Skeleton sx={{ height: 200, width: 345 }} animation="wave" variant="rectangular" />
                             <CardContent style={{height: '60px', maxHeight: '120px'}}>

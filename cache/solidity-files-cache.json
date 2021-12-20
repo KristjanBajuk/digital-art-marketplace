@@ -1,10 +1,10 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/k.bajuk/Desktop/digital-art-marketplace/contracts/KBMarket.sol": {
-      "lastModificationDate": 1639747583028,
-      "contentHash": "36b7cd3fcbb95b31b162ffe28cccf65f",
-      "sourceName": "contracts/KBMarket.sol",
+    "/Users/k.bajuk/Desktop/digital-art-marketplace/contracts/NFT.sol": {
+      "lastModificationDate": 1639739535281,
+      "contentHash": "a53bf6e975193b57716707c748033067",
+      "sourceName": "contracts/NFT.sol",
       "solcConfig": {
         "version": "0.8.4",
         "settings": {
@@ -30,15 +30,14 @@
       },
       "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
-        "@openzeppelin/contracts/utils/Counters.sol",
-        "hardhat/console.sol"
+        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+        "@openzeppelin/contracts/utils/Counters.sol"
       ],
       "versionPragmas": [
         "^0.8.4"
       ],
       "artifacts": [
-        "KBMarket"
+        "NFT"
       ]
     },
     "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
@@ -84,10 +83,10 @@
         "ERC721"
       ]
     },
-    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
-      "lastModificationDate": 1639673732762,
-      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
-      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
+      "lastModificationDate": 1639673732739,
+      "contentHash": "580a443491d9d70eb064b0130fc3cd01",
+      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
         "version": "0.8.4",
         "settings": {
@@ -111,12 +110,14 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "../ERC721.sol"
+      ],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ReentrancyGuard"
+        "ERC721URIStorage"
       ]
     },
     "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
@@ -152,41 +153,6 @@
       ],
       "artifacts": [
         "Counters"
-      ]
-    },
-    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1639673660224,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
-      "solcConfig": {
-        "version": "0.8.4",
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        ">=0.4.22 <0.9.0"
-      ],
-      "artifacts": [
-        "console"
       ]
     },
     "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
@@ -475,10 +441,10 @@
         "IERC165"
       ]
     },
-    "/Users/k.bajuk/Desktop/digital-art-marketplace/contracts/NFT.sol": {
-      "lastModificationDate": 1639739535281,
-      "contentHash": "a53bf6e975193b57716707c748033067",
-      "sourceName": "contracts/NFT.sol",
+    "/Users/k.bajuk/Desktop/digital-art-marketplace/contracts/NFTMarket.sol": {
+      "lastModificationDate": 1639995787306,
+      "contentHash": "fdca97dfb9b3714ec4476a67c684e942",
+      "sourceName": "contracts/NFTMarket.sol",
       "solcConfig": {
         "version": "0.8.4",
         "settings": {
@@ -504,20 +470,21 @@
       },
       "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/utils/Counters.sol"
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "hardhat/console.sol"
       ],
       "versionPragmas": [
         "^0.8.4"
       ],
       "artifacts": [
-        "NFT"
+        "NFTMarket"
       ]
     },
-    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
-      "lastModificationDate": 1639673732739,
-      "contentHash": "580a443491d9d70eb064b0130fc3cd01",
-      "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
+    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+      "lastModificationDate": 1639673732762,
+      "contentHash": "92f9448b23a90ea3bb932ee55cc3ccce",
+      "sourceName": "@openzeppelin/contracts/security/ReentrancyGuard.sol",
       "solcConfig": {
         "version": "0.8.4",
         "settings": {
@@ -541,14 +508,47 @@
           }
         }
       },
-      "imports": [
-        "../ERC721.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],
       "artifacts": [
-        "ERC721URIStorage"
+        "ReentrancyGuard"
+      ]
+    },
+    "/Users/k.bajuk/Desktop/digital-art-marketplace/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1639673660224,
+      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
       ]
     }
   }

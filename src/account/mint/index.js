@@ -8,7 +8,7 @@ import {create as ipfsHttpClient} from 'ipfs-http-client'
 import { nftaddress, nftmarketaddress } from "../../config"
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
-import KBMarket from '../../artifacts/contracts/KBMarket.sol/KBMarket.json'
+import KBMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';

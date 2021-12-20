@@ -1,11 +1,11 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("KBMarket", function () {
+describe("NFTMarket", function () {
   it("Should mint and trade NFTs", async function () {
 
     // Test to recieve contract addresses
-    const Market = await ethers.getContractFactory('KBMarket');
+    const Market = await ethers.getContractFactory('NFTMarket');
     const market = await Market.deploy();
     await market.deployed();
 

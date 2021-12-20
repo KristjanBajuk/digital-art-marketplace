@@ -20,6 +20,7 @@ const Index = () => {
             <UI.AppBar />
             <Toolbar variant="dense" />
             <Switch>
+                <Route path="/account" component={Account} />
                 <Route path="/create" component={Account.Mint} />
                 <Route path="/" component={Marketplace} />
                 <Redirect from='*' to="/" />

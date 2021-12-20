@@ -68,10 +68,6 @@ const MaterialAppBar = () => {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
@@ -144,7 +140,7 @@ const MaterialAppBar = () => {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem >
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -228,13 +224,13 @@ const MaterialAppBar = () => {
                             Create
                         </Button>
                         <IconButton
+                            onClick={()=>history.push('/account')}
                             sx={{mr: '20px'}}
                             size="large"
                             edge="end"
                             aria-label="account of current user"
                             aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
                             <AccountCircleOutlinedIcon/>
