@@ -7,6 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Themes from './@components/themes';
+import AuthContext from './@components/auth/AuthContext';
 
 import Marketplace from './marketplace';
 import Account from './account';
@@ -33,7 +34,9 @@ ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter basename={''}>
             <ThemeProvider theme={Themes.Light}>
+                <AuthContext>
                 <Index/>
+                </AuthContext>
             </ThemeProvider>
         </BrowserRouter>
     </React.StrictMode>,

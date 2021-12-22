@@ -6,9 +6,10 @@ import Divider from '@mui/material/Divider';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import useAccount from '../useAccount';
+import Avatar from "@mui/material/Avatar";
 
 export default function TemporaryDrawer({open, onClose}) {
-    const [account, balance, busy] = useAccount();
+    const [account, balance, userInfo, busy] = useAccount();
     
     return (
         <div>
@@ -27,7 +28,20 @@ export default function TemporaryDrawer({open, onClose}) {
                         {account && balance && <Box>
                             <Box sx={{display: 'flex', padding: '20px', justifyContent: 'space-between'}}>
                                 <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                                    <AccountCircleOutlinedIcon width={'26px'} height={'26px'}/>
+                                    <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+                                        {userInfo?.avatar ? <Avatar sx={{width: '26px', height: '26px'}} src={userInfo?.avatar} /> : <AccountCircleOutlinedIcon/>}
+                                        <Box sx={{
+                                            display: 'flex',
+                                            ml: '10px',
+                                            fontWeight: 500,
+                                            color: 'rgb(112, 122, 131)',
+                                            flexDirection: 'column',
+                                            justifyContent: 'center'
+                                        }}>
+                                            {userInfo?.username}
+                                        </Box>
+                                    </Box>
+                                   
                                 </Box>
                                 <Box sx={{
                                     display: 'flex',

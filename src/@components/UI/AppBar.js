@@ -19,6 +19,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import {alpha, styled} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SideDrawer from './SideDrawer';
+import Auth from '../auth';
+import Avatar from "@mui/material/Avatar";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -62,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MaterialAppBar = () => {
+    const {user} = Auth.useAuth();
     const history = useHistory();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -85,6 +88,10 @@ const MaterialAppBar = () => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -102,8 +109,9 @@ const MaterialAppBar = () => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={()=>{history.push('/account'); handleMenuClose()}}>Profile</MenuItem>
+            <MenuItem onClick={()=>{history.push('/account/settings'); handleMenuClose()}}>Settings</MenuItem>
+            <MenuItem onClick={handleMenuClose}>Log out</MenuItem>
         </Menu>
     );
 
@@ -152,7 +160,7 @@ const MaterialAppBar = () => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircleOutlinedIcon/>
+                    <Avatar sx={{width: '20px', height: '20px'}} src={user?.avatar} />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -228,7 +236,8 @@ const MaterialAppBar = () => {
                             Create
                         </Button>
                         <IconButton
-                            onClick={()=>history.push('/account')}
+                            // onClick={()=>history.push('/account')}
+                            onClick={handleProfileMenuOpen}
                             sx={{mr: '20px'}}
                             size="large"
                             edge="end"
@@ -237,7 +246,7 @@ const MaterialAppBar = () => {
                             aria-haspopup="true"
                             color="inherit"
                         >
-                            <AccountCircleOutlinedIcon/>
+                            {user?.avatar ? <Avatar sx={{width: '25px', height: '25px'}} src={user?.avatar} /> : <AccountCircleOutlinedIcon/>} 
                         </IconButton>
                         <IconButton
                             onClick={()=>setDrawerOpen(!drawerOpen)}
