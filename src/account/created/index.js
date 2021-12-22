@@ -15,11 +15,13 @@ import Grid from '@mui/material/Grid';
 import {makeStyles} from '@mui/styles'
 
 import { ethers } from "ethers"
-import Web3Modal from 'web3modal'
 import { nftaddress, nftmarketaddress } from "../../config"
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
-import KBMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+import NFTMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+
+import useWallet from '../../@components/useWallet';
+import useContract from '../../@components/useContract';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -37,40 +39,37 @@ const useStyles = makeStyles((theme) => ({
 
 const Index = () => {
     const classes = useStyles();
+    const connectWallet = useWallet();
+    const getContract = useContract();
     const [nfts, setNfts] = React.useState([]);
     const [loadingState, setLoadingState] = React.useState('not-loaded');
 
     React.useEffect(()=>{
-        loadNFTs()
+       loadNFTs();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
     const loadNFTs = async() => {
-        //provider, tokenContract, marketContract, data for our MarketItems
+        const wallet = await connectWallet();
+        
+        const tokenContract  = getContract(nftaddress, NFT.abi, wallet.provider);
+        const marketContract = getContract(nftmarketaddress, NFTMarket.abi, wallet.signer);
+    
+        const nfts = await marketContract.fetchItemsCreated();
 
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-
-        const signer = provider.getSigner();
-
-        const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
-        const marketContract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
-
-        const data = await marketContract.fetchItemsCreated();
-
-        const items = await Promise.all(data.map( async i => {
-            const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        const items = await Promise.all(nfts.map( async nft => {
+            const tokenUri = await tokenContract.tokenURI(nft.tokenId);
             // we want to get the token metadata - json
             const meta = await axios.get(tokenUri);
 
-            let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+            let price = ethers.utils.formatUnits(nft.price.toString(), 'ether');
 
             let item = {
                 price,
-                tokenId: i.tokenId.toNumber(),
-                seller: i.seller,
-                owner: i.owner,
+                tokenId: nft.tokenId.toNumber(),
+                seller: nft.seller,
+                owner: nft.owner,
                 image: meta.data.image,
                 name: meta.data.name,
                 description: meta.data.description
@@ -99,7 +98,7 @@ const Index = () => {
                             image={nft?.image}
                             alt="green iguana"
                         />
-                        <CardContent style={{ maxHeight: '120px'}}>
+                        <CardContent style={{minHeight: '80px', maxHeight: '120px'}}>
                             <Typography gutterBottom variant="h5" component="div">
                                 {nft?.name}
                             </Typography>

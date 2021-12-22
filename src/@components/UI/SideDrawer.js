@@ -8,7 +8,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import useAccount from '../useAccount';
 
 export default function TemporaryDrawer({open, onClose}) {
-    const [account, balance] = useAccount();
+    const [account, balance, busy] = useAccount();
     
     return (
         <div>
@@ -70,13 +70,13 @@ export default function TemporaryDrawer({open, onClose}) {
 
                             </Box>
                         </Box>}
-                        {!balance && !account &&   <Box sx={{display: 'flex', padding: '20px', justifyContent: 'center'}}>
+                        {!balance && !account && busy &&  <Box sx={{display: 'flex', padding: '20px', justifyContent: 'center'}}>
                             <h4 style={{
                                 marginTop: 10,
                                 fontWeight: 600,
                                 fontSize: '20px',
                                 color: 'rgb(4, 17, 29)'
-                            }}> Connect your wallet.</h4>
+                            }}>Connect your wallet.</h4>
                         </Box>}
                     </Box>
                 </Drawer>

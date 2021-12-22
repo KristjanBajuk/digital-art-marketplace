@@ -15,11 +15,13 @@ import Grid from '@mui/material/Grid';
 import {makeStyles} from '@mui/styles'
 
 import { ethers } from "ethers"
-import Web3Modal from 'web3modal'
+
 import { nftaddress, nftmarketaddress } from "../../config"
 
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
-import KBMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+import NFTMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
+import useWallet from "../../@components/useWallet";
+import useContract from "../../@components/useContract";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -27,35 +29,27 @@ const useStyles = makeStyles((theme) => ({
             boxShadow: 'rgb(4 17 29 / 25%) 0px 0px 8px 0px',
             transition: 'all 0.1s ease 0s'
         }
-    },
-    cardAction: {
-        '&:hover': {
-
-        }
     }
 }));
 
 const Index = () => {
     const classes = useStyles();
+    const connectWallet = useWallet();
+    const getContract = useContract();
     const [nfts, setNfts] = React.useState([]);
     const [loadingState, setLoadingState] = React.useState('not-loaded');
 
     React.useEffect(()=>{
-        loadNFTs()
+        loadNFTs();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
     const loadNFTs = async() => {
-        //provider, tokenContract, marketContract, data for our MarketItems
+        const wallet = await connectWallet();
 
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-
-        const signer = provider.getSigner();
-
-        const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
-        const marketContract = new ethers.Contract(nftmarketaddress, KBMarket.abi, signer);
+        const tokenContract = getContract(nftaddress, NFT.abi, wallet.provider);
+        const marketContract = getContract(nftmarketaddress, NFTMarket.abi, wallet.signer);
 
         const data = await marketContract.fetchMyNFTS();
 
@@ -99,7 +93,7 @@ const Index = () => {
                             image={nft?.image}
                             alt="green iguana"
                         />
-                        <CardContent style={{maxHeight: '120px'}}>
+                        <CardContent style={{minHeight: '80px',maxHeight: '120px'}}>
                             <Typography gutterBottom variant="h5" component="div">
                                 {nft?.name}
                             </Typography>
