@@ -20,7 +20,7 @@ import { nftaddress, nftmarketaddress } from "../../config"
 import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
 import NFTMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 
-import useWallet from '../../@components/useWallet';
+import Auth from '../../@components/auth';
 import useContract from '../../@components/useContract';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Index = () => {
     const classes = useStyles();
-    const connectWallet = useWallet();
+    const walletProvider = Auth.useWalletProvider();
     const getContract = useContract();
     const [nfts, setNfts] = React.useState([]);
     const [loadingState, setLoadingState] = React.useState('not-loaded');
@@ -51,7 +51,7 @@ const Index = () => {
 
 
     const loadNFTs = async() => {
-        const wallet = await connectWallet();
+        const wallet = await walletProvider();
         
         const tokenContract  = getContract(nftaddress, NFT.abi, wallet.provider);
         const marketContract = getContract(nftmarketaddress, NFTMarket.abi, wallet.signer);

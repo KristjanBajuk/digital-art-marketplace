@@ -5,11 +5,11 @@ import Divider from '@mui/material/Divider';
 
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
-import useAccount from '../useAccount';
+import Auth from '../auth';
 import Avatar from "@mui/material/Avatar";
 
 export default function TemporaryDrawer({open, onClose}) {
-    const [account, balance, userInfo, busy] = useAccount();
+    const [account, balance, userInfo, busy] = Auth.useAuth();
     
     return (
         <div>

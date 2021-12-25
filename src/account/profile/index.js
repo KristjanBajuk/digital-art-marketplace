@@ -7,10 +7,10 @@ import Avatar from '@mui/material/Avatar';
 import Collected from '../collected';
 import Created from '../created';
 
-import useAccount from "../../@components/useAccount";
+import Auth from "../../@components/auth";
 
 const Index = React.memo(() => {
-    const [, , userInfo] = useAccount();
+    const [, , userInfo] = Auth.useAuth();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {

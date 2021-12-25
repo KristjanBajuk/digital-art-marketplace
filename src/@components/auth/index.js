@@ -1,7 +1,10 @@
-import useAuth from "./useAuth";
-
+import useCurrentUserContext from "./contextAPI/useCurrentUserContext";
+import useAuth from './useAuth';
+import useWalletProvider from './useWalletProvider'
 const Auth = {
-    useAuth
+    useWalletProvider,
+    useAuth,
+    useCurrentUserContext
 };
 
 export default Auth;

@@ -22,7 +22,7 @@ import NFT from '../../artifacts/contracts/NFT.sol/NFT.json'
 import NFTMarket from '../../artifacts/contracts/NFTMarket.sol/NFTMarket.json'
 
 import useContract from "../../@components/useContract";
-import useWallet from "../../@components/useWallet";
+import Auth from "../../@components/auth";
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const Index = () => {
     const classes = useStyles();
     const getContract = useContract();
-    const connectWallet = useWallet();
+    const walletProvider = Auth.useWalletProvider();
     const [nfts, setNfts] = React.useState([]);
     const [loadingState, setLoadingState] = React.useState('not-loaded');
 
@@ -88,7 +88,7 @@ const Index = () => {
     // function to buy nfts for market
 
     const buyNFT = async (nft) => {
-        const wallet = await connectWallet();
+        const wallet = await walletProvider();
         const contract = getContract(nftmarketaddress, NFTMarket.abi, wallet.signer);
         
         const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');

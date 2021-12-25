@@ -5,7 +5,6 @@ import Auth from "../../@components/auth";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-import useAccount from "../../@components/useAccount";
 import {useService} from '../hooks';
 import Busy from "../../@components/busy";
 import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
@@ -17,7 +16,7 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 const Index = React.memo(() => {
     const {setUser} = Auth.useAuth();
     const service = useService();
-    const [, ,userInfo] = useAccount();
+    const [, ,userInfo] = Auth.useAuth();
     const [uploading, setUploading] = useState(false);
     const [formInput, updateFormInput] = useState({avatar: '', username: '', bio: '', emailAddress: '', walletAddress: ''});
     
